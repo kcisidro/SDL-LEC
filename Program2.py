@@ -1,14 +1,13 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+#ADD STUDENT WINDOW
 class AddStudentDialog(tk.Toplevel):
     def __init__(self, parent):
         super().__init__(parent)
         self.title("Add Student")
         self.geometry("270x200")
         self.configure(bg="#9BBEC8")
-
-
 
         elements = [("Last Name:", tk.Entry), ("First Name:", tk.Entry), ("Middle Initial:", tk.Entry)]
 
@@ -29,19 +28,18 @@ class AddStudentDialog(tk.Toplevel):
         else:
             messagebox.showerror("Error", "Please enter Last Name and First Name.")
 
+#MAIN WINDOW
 class GradebookApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Gradebook")
-        self.root.configure(bg="#9BBEC8")  # Set background color
+        self.root.configure(bg="#9BBEC8")
 
 
         tk.Label(root, text="ELECTRONIC CLASS RECORD", font=("Arial", 20, "bold"), bg="#9BBEC8", fg="#164863").grid(row=0, column=0, columnspan=3, pady=10, sticky="nsew")
         self.students = []
 
-        # Modify the button colors
         button_style = {'bg': '#164863', 'fg': '#DDF2FD', 'font': ("Arial", 11, "bold"), 'width': 100, 'height': 2}
-
         buttons = [
             ("Add Student", self.open_add_student_dialog),
             ("Add Grade", self.open_add_grade_dialog),
@@ -71,6 +69,7 @@ class GradebookApp:
         root.grid_rowconfigure(2, weight=1)
         root.grid_columnconfigure((0, 1, 2), weight=1)
 
+#MAIN WIN FUNCTIONS
     def open_add_student_dialog(self):
         AddStudentDialog(self.root)
 
@@ -139,14 +138,14 @@ class GradebookApp:
         else:
             messagebox.showinfo("No Students", "Please add students before calculating class averages.")
 
+#WINDOW FOR ADDING NG GRADE
 class AddGradeDialog(tk.Toplevel):
     def __init__(self, parent, students, update_treeview):
         super().__init__(parent)
         self.title("Add Grade")
         self.students = students
         self.update_treeview = update_treeview
-        self.configure(bg="#9BBEC8")  # Set background color
-
+        self.configure(bg="#9BBEC8")
 
         tk.Label(self, text="Select Student:", font=("Arial", 10)).grid(row=0, column=0, padx=10, pady=5, sticky="w")
         self.listbox_students = tk.Listbox(self, font=("Arial", 10), selectmode=tk.SINGLE, exportselection=0)
