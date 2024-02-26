@@ -6,6 +6,9 @@ class AddStudentDialog(tk.Toplevel):
         super().__init__(parent)
         self.title("Add Student")
         self.geometry("270x200")
+        self.configure(bg="#9BBEC8")
+
+
 
         elements = [("Last Name:", tk.Entry), ("First Name:", tk.Entry), ("Middle Initial:", tk.Entry)]
 
@@ -30,9 +33,14 @@ class GradebookApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Gradebook")
+        self.root.configure(bg="#9BBEC8")  # Set background color
 
-        tk.Label(root, text="ELECTRONIC CLASS RECORD", font=("Arial", 14, "bold")).grid(row=0, column=0, columnspan=3, pady=10, sticky="nsew")
+
+        tk.Label(root, text="ELECTRONIC CLASS RECORD", font=("Arial", 20, "bold"), bg="#9BBEC8", fg="#164863").grid(row=0, column=0, columnspan=3, pady=10, sticky="nsew")
         self.students = []
+
+        # Modify the button colors
+        button_style = {'bg': '#164863', 'fg': '#DDF2FD', 'font': ("Arial", 11, "bold"), 'width': 100, 'height': 2}
 
         buttons = [
             ("Add Student", self.open_add_student_dialog),
@@ -42,7 +50,8 @@ class GradebookApp:
         ]
 
         for i, (text, command) in enumerate(buttons):
-            tk.Button(root, text=text, command=command, font=("Arial", 11), width=100, height=2).grid(row=4 + i//2, column=i%2, pady=(10, 5), padx=(10, 5))
+            tk.Button(root, text=text, command=command, **button_style).grid(row=4 + i//2, column=i%2, pady=(10, 5), padx=(10, 5))
+
 
         columns = [("Name", "Student Name", 'center'), ("Average", "Average", 'center')]
         self.treeview_students = ttk.Treeview(root, columns=[col[0] for col in columns], show="headings", style="Treeview")
@@ -136,6 +145,8 @@ class AddGradeDialog(tk.Toplevel):
         self.title("Add Grade")
         self.students = students
         self.update_treeview = update_treeview
+        self.configure(bg="#9BBEC8")  # Set background color
+
 
         tk.Label(self, text="Select Student:", font=("Arial", 10)).grid(row=0, column=0, padx=10, pady=5, sticky="w")
         self.listbox_students = tk.Listbox(self, font=("Arial", 10), selectmode=tk.SINGLE, exportselection=0)
